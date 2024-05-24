@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- START PRODUCT LIST SECTION -->
+
+    <!-- Product card -->
+    <dimen name="product_item_card_elevation">5dp</dimen>
+    <dimen name="product_item_card_corner_radius">10dp</dimen>
+    <dimen name="product_item_card_margin">12dp</dimen>
+    <dimen name="product_item_card_padding">20dp</dimen>
+    <dimen name="product_item_card_info_vertical_margin">6dp</dimen>
+    <dimen name="product_item_card_counter_margin_top">20dp</dimen>
+
+    <!-- Counter view -->
+    <dimen name="product_counter_count_horizontal_margin">20dp</dimen>
+
+    <!-- Product list -->
+    <dimen name="product_list_rv_horizontal_margin">12dp</dimen>
+
+    <!-- END PRODUCT LIST SECTION -->
+</resources>

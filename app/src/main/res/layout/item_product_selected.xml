@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <ImageView
+        android:id="@+id/itemProductIvProductImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/item_product_image_description"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_default_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemSelectedProductTvProductName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/shopping_cart_product_selected_horizontal_margin"
+        android:layout_marginVertical="@dimen/shopping_cart_product_selected_vertical_margin"
+        app:layout_constraintBottom_toTopOf="@id/itemSelectedProductTvProductCount"
+        app:layout_constraintEnd_toStartOf="@id/guideline_end"
+        app:layout_constraintStart_toEndOf="@id/itemProductIvProductImage"
+        app:layout_constraintTop_toTopOf="@id/itemProductIvProductImage"
+        tools:text="-" />
+
+    <TextView
+        android:id="@+id/itemSelectedProductTvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/itemSelectedProductTvProductName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/itemSelectedProductTvProductName"
+        tools:text="0.00€" />
+
+    <TextView
+        android:id="@+id/itemSelectedProductTvProductCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/shopping_cart_product_selected_horizontal_margin"
+        android:layout_marginVertical="@dimen/shopping_cart_product_selected_vertical_margin"
+        app:layout_constraintBottom_toBottomOf="@id/itemProductIvProductImage"
+        app:layout_constraintEnd_toStartOf="@id/guideline_end"
+        app:layout_constraintStart_toEndOf="@id/itemProductIvProductImage"
+        app:layout_constraintTop_toBottomOf="@id/itemSelectedProductTvProductName"
+        tools:text="-" />
+
+    <TextView
+        android:id="@+id/itemSelectedProductTvTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/itemSelectedProductTvProductCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/itemSelectedProductTvProductCount"
+        tools:text="0.00€" />
+
+    <ImageView
+        android:id="@+id/itemSelectedProductIvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/shopping_cart_product_selected_horizontal_margin"
+        android:contentDescription="@string/shopping_cart_selected_product_info_description"
+        android:src="@drawable/ic_info"
+        app:layout_constraintBottom_toBottomOf="@id/itemSelectedProductTvPriceWithDiscount"
+        app:layout_constraintEnd_toStartOf="@id/itemSelectedProductTvPriceWithDiscount"
+        app:layout_constraintStart_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="@id/itemSelectedProductTvPriceWithDiscount" />
+
+    <TextView
+        android:id="@+id/itemSelectedProductTvPriceWithDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/shopping_cart_product_selected_vertical_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/itemSelectedProductTvTotalPrice"
+        app:layout_constraintTop_toBottomOf="@id/itemSelectedProductTvTotalPrice"
+        tools:text="0.00€" />
+</androidx.constraintlayout.widget.ConstraintLayout>

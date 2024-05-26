@@ -6,13 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".presentation.products.ProductsFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/product_list_rv_horizontal_margin"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/item_product" />
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/product_horizontal_margin"
+        android:layout_marginVertical="@dimen/product_vertical_margin">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productsRvList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/productsBtnShowCart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="2"
+            tools:listitem="@layout/item_product" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/productsBtnShowCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/product_show_cart_margin_top"
+            android:padding="@dimen/product_show_cart_padding"
+            android:text="@string/products_show_cart"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productsRvList" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

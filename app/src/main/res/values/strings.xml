@@ -9,6 +9,7 @@
 
     <!-- Product item -->
     <string name="item_product_image_description">product image</string>
+    <string name="products_show_cart">Ver carrito (%1$d)</string>
 
     <!-- END PRODUCT LIST SECTION -->
 </resources>

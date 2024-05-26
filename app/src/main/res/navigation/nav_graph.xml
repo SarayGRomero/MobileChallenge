@@ -12,11 +12,11 @@
         tools:layout="@layout/fragment_products">
     </fragment>
 
-    <fragment
+    <!--<fragment
         android:id="@+id/shoppingCartFragment"
         android:name="com.cabify.cabifymobilechallengexml.presentation.shoppingCart.ShoppingCartFragment"
         android:label="ShoppingCartFragment"
         tools:layout="@layout/fragment_shopping_cart">
-    </fragment>
+    </fragment>-->
 
 </navigation>

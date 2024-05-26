@@ -14,7 +14,10 @@
     <dimen name="product_counter_count_horizontal_margin">20dp</dimen>
 
     <!-- Product list -->
-    <dimen name="product_list_rv_horizontal_margin">12dp</dimen>
+    <dimen name="product_horizontal_margin">12dp</dimen>
+    <dimen name="product_vertical_margin">16dp</dimen>
+    <dimen name="product_show_cart_margin_top">30dp</dimen>
+    <dimen name="product_show_cart_padding">5dp</dimen>
 
     <!-- END PRODUCT LIST SECTION -->
 </resources>

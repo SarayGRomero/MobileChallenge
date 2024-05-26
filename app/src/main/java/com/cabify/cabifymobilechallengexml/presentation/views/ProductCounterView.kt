@@ -47,6 +47,11 @@ class ProductCounterView(context: Context, attrs: AttributeSet?) : ConstraintLay
         updateUI()
     }
 
+    fun setCount(count: Int) {
+        this.count = count
+        updateUI()
+    }
+
     private fun updateUI() = with(binding) {
         productCounterTvCount.text = count.toString()
         productCounterBtnRemove.apply {

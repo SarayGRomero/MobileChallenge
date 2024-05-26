@@ -10,13 +10,20 @@
         android:name="com.cabify.cabifymobilechallengexml.presentation.products.ProductsFragment"
         android:label="ProductsFragment"
         tools:layout="@layout/fragment_products">
+        <action
+            android:id="@+id/action_productsFragment_to_shoppingCartFragment"
+            app:destination="@id/shoppingCartFragment">
+        </action>
     </fragment>
 
-    <!--<fragment
+    <fragment
         android:id="@+id/shoppingCartFragment"
         android:name="com.cabify.cabifymobilechallengexml.presentation.shoppingCart.ShoppingCartFragment"
         android:label="ShoppingCartFragment"
         tools:layout="@layout/fragment_shopping_cart">
-    </fragment>-->
+        <argument
+            android:name="selectedProducts"
+            app:argType="com.cabify.cabifymobilechallengexml.presentation.models.ProductsVo" />
+    </fragment>
 
 </navigation>

@@ -25,12 +25,20 @@ class ProductsViewModel @Inject constructor(
     private val _products = MutableStateFlow<List<CabifyProductVo>>(emptyList())
     val products: StateFlow<List<CabifyProductVo>> = _products
 
-    private val _totalCount = MutableStateFlow<Int>(0)
+    private val _totalCount = MutableStateFlow(0)
     val totalCount: StateFlow<Int> = _totalCount
 
+    private val _selectedProducts: MutableStateFlow<ProductsVo?> = MutableStateFlow(null)
+    val selectedProducts: StateFlow<ProductsVo?> = _selectedProducts
+
+    private val _navigate = MutableStateFlow(false)
+    val navigate: StateFlow<Boolean> = _navigate
+
     fun getProducts() = viewModelScope.launch(ioDispatcher) {
-        getProductsUseCase.invoke().collect { products ->
-            _products.value = products.map { it.toVo() }
+        if (selectedProducts.value == null) {
+            getProductsUseCase.invoke().collect { products ->
+                _products.value = products.map { it.toVo() }
+            }
         }
     }
 
@@ -39,13 +47,17 @@ class ProductsViewModel @Inject constructor(
         _totalCount.value = products.sumOf { it.count }
     }
 
-    fun goToShoppingCart(products: List<CabifyProductVo>) {
-        val selectedProducts = products.filter { it.count > 0 }
-        val totalProducts = ProductsVo(
-            products = selectedProducts,
-            totalPrice = selectedProducts.getPrice()
+    fun updateSelectedProductsList(products: List<CabifyProductVo>) {
+        val selectedProductsList = products.filter { it.count > 0 }
+        val selectedProducts = ProductsVo(
+            products = selectedProductsList,
+            totalPrice = selectedProductsList.getPrice()
         )
-        Log.d("ProductsViewModel", totalProducts.products.toString() + " - " + totalProducts.totalPrice.toString())
-        //TODO Navigate to shopping cart
+        _selectedProducts.value = selectedProducts
+        _navigate.value = !_navigate.value
+    }
+
+    fun updateNavigate(navigate: Boolean) {
+        _navigate.value = navigate
     }
 }

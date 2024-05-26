@@ -1,4 +1,4 @@
-package com.cabify.cabifymobilechallengexml.presentation.products
+package com.cabify.cabifymobilechallengexml.presentation.shoppingCart
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,15 +7,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cabify.cabifymobilechallengexml.R
 import com.cabify.cabifymobilechallengexml.databinding.ItemProductBinding
+import com.cabify.cabifymobilechallengexml.databinding.ItemProductSelectedBinding
 import com.cabify.cabifymobilechallengexml.domain.ProductCode
 import com.cabify.cabifymobilechallengexml.presentation.models.CabifyProductVo
+import com.cabify.cabifymobilechallengexml.presentation.utils.getCountWithShoppingCartFormat
+import com.cabify.cabifymobilechallengexml.presentation.utils.getTotalPrice
 import com.cabify.cabifymobilechallengexml.presentation.utils.toPriceFormat
 
-class ProductsAdapter(
-    private val onProductCountChangeListener: (List<CabifyProductVo>) -> Unit
-) : ListAdapter<CabifyProductVo, ProductsAdapter.ProductsViewHolder>(DiffCallback()) {
+class SelectedProductsAdapter : ListAdapter<CabifyProductVo, SelectedProductsAdapter.ProductsViewHolder>(DiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
-        val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemProductSelectedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductsViewHolder(binding)
     }
 
@@ -23,7 +24,7 @@ class ProductsAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class ProductsViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ProductsViewHolder(private val binding: ItemProductSelectedBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CabifyProductVo) = with(binding) {
             when (item.code) {
                 ProductCode.VOUCHER -> itemProductIvProductImage.setImageResource(R.drawable.ic_cabify_voucher)
@@ -31,13 +32,11 @@ class ProductsAdapter(
                 ProductCode.MUG -> itemProductIvProductImage.setImageResource(R.drawable.ic_cabify_coffee_mug)
                 else -> itemProductIvProductImage.setImageResource(R.drawable.ic_default_image)
             }
-            itemProductTvProductName.text = item.name
-            itemProductTvProductPrice.text = item.price.toPriceFormat()
-            itemProductCounterView.setCount(item.count)
-            itemProductCounterView.setProductCounterListener { count ->
-                item.count = count
-                onProductCountChangeListener.invoke(currentList)
-            }
+            itemSelectedProductTvProductName.text = item.name
+            itemSelectedProductTvPrice.text = item.price.toPriceFormat()
+            itemSelectedProductTvProductCount.text = item.count.getCountWithShoppingCartFormat()
+            itemSelectedProductTvTotalPrice.text = item.price.getTotalPrice(item.count)
+            itemSelectedProductTvPriceWithDiscount.text = item.price.getTotalPrice(item.count)
         }
     }
 

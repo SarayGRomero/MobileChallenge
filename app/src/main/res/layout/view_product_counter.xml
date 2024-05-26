@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/productCounterBtnRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:contentDescription="@string/product_counter_remove_description"
+        android:src="@drawable/ic_minus" />
+
+    <TextView
+        android:id="@+id/productCounterTvCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/product_counter_count_horizontal_margin"
+        tools:text="0" />
+
+    <ImageButton
+        android:id="@+id/productCounterBtnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:contentDescription="@string/product_counter_add_description"
+        android:src="@drawable/ic_plus" />
+
+</LinearLayout>

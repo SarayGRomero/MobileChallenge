@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">CabifyMobileChallengeXML</string>
+
+    <!-- START PRODUCT LIST SECTION -->
+
+    <!-- Product counter -->
+    <string name="product_counter_remove_description">remove</string>
+    <string name="product_counter_add_description">add</string>
+
+    <!-- Product item -->
+    <string name="item_product_image_description">product image</string>
+    <string name="products_show_cart">Ver carrito (%1$d)</string>
+
+    <!-- END PRODUCT LIST SECTION -->
 </resources>

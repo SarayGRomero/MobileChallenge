@@ -1,4 +1,4 @@
-package com.cabify.cabifymobilechallengexml.presentation.products
+package com.cabify.cabifymobilechallengexml.presentation.ui.products
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -90,8 +90,6 @@ class ProductsFragment : Fragment() {
         viewModel.selectedProducts.collect { selectedProducts ->
             if (selectedProducts != null) {
                 this@ProductsFragment.selectedProducts = selectedProducts
-            } else {
-                // TODO: Show error
             }
         }
     }

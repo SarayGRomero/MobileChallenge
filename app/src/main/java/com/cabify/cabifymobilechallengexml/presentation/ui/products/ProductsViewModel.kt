@@ -1,4 +1,4 @@
-package com.cabify.cabifymobilechallengexml.presentation.products
+package com.cabify.cabifymobilechallengexml.presentation.ui.products
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

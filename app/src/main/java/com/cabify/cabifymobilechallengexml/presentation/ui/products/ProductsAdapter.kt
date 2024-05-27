@@ -1,4 +1,4 @@
-package com.cabify.cabifymobilechallengexml.presentation.products
+package com.cabify.cabifymobilechallengexml.presentation.ui.products
 
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +14,7 @@ import com.cabify.cabifymobilechallengexml.domain.models.ProductCode
 import com.cabify.cabifymobilechallengexml.presentation.models.CabifyProductVo
 import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.appliedPromotion
 import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getPrice
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getProductDrawable
 
 class ProductsAdapter(
     private val onProductCountChangeListener: (List<CabifyProductVo>) -> Unit,
@@ -30,21 +31,11 @@ class ProductsAdapter(
 
     inner class ProductsViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CabifyProductVo) = with(binding) {
-            when (item.code) {
-                ProductCode.VOUCHER -> itemProductIvProductImage.setImageResource(R.drawable.ic_cabify_voucher)
-                ProductCode.TSHIRT -> itemProductIvProductImage.setImageResource(R.drawable.ic_cabify_tshirt)
-                ProductCode.MUG -> itemProductIvProductImage.setImageResource(R.drawable.ic_cabify_coffee_mug)
-                else -> itemProductIvProductImage.setImageResource(R.drawable.ic_default_image)
-            }
+            itemProductIvProductImage.setImageResource(item.getProductDrawable())
             itemProductTvProductName.text = item.name
             itemProductCounterView.setCount(item.count)
             setPromotion(item, binding)
-            itemProductCounterView.setProductCounterListener { count ->
-                item.count = count
-                item.appliedPromotion = item.appliedPromotion()
-                updatePrice(item, binding.itemProductTvProductPrice)
-                onProductCountChangeListener.invoke(currentList)
-            }
+            setCounterViewListener(item, binding)
         }
 
         private fun setPromotion(item: CabifyProductVo, binding: ItemProductBinding) = with(binding) {
@@ -56,6 +47,15 @@ class ProductsAdapter(
             }
             if (item.hasPromotion) itemProductTvPromotion.text = item.promotion?.name
             updatePrice(item, binding.itemProductTvProductPrice)
+        }
+
+        private fun setCounterViewListener(item: CabifyProductVo, binding: ItemProductBinding) {
+            binding.itemProductCounterView.setProductCounterListener { count ->
+                item.count = count
+                item.appliedPromotion = item.appliedPromotion()
+                updatePrice(item, binding.itemProductTvProductPrice)
+                onProductCountChangeListener.invoke(currentList)
+            }
         }
 
         private fun updatePrice(item: CabifyProductVo, itemProductTvProductPrice: TextView) {

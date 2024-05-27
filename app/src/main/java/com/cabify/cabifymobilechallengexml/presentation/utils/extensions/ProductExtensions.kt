@@ -1,6 +1,8 @@
 package com.cabify.cabifymobilechallengexml.presentation.utils.extensions
 
 import android.text.SpannableString
+import com.cabify.cabifymobilechallengexml.R
+import com.cabify.cabifymobilechallengexml.domain.models.ProductCode
 import com.cabify.cabifymobilechallengexml.presentation.models.CabifyProductVo
 
 fun CabifyProductVo.appliedPromotion(): Boolean =
@@ -12,11 +14,10 @@ fun CabifyProductVo.getPrice(): SpannableString = if (appliedPromotion()) {
     SpannableString(this.price.toPriceFormat())
 }
 
-fun Float.getTotalPrice(discountTotal: Float?, appliedPromotion: Boolean): SpannableString =
-    if (appliedPromotion && discountTotal != null) {
-        discountTotal.let {
-            this.toDiscountPriceFormat(it)
-        }
-    } else {
-        SpannableString(this.toPriceFormat())
+fun CabifyProductVo.getProductDrawable(): Int =
+    when (this.code) {
+        ProductCode.VOUCHER -> R.drawable.ic_cabify_voucher
+        ProductCode.TSHIRT -> R.drawable.ic_cabify_tshirt
+        ProductCode.MUG -> R.drawable.ic_cabify_coffee_mug
+        else -> R.drawable.ic_default_image
     }

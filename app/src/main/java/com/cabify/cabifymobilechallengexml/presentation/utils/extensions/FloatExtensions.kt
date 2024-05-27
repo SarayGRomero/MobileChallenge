@@ -24,3 +24,12 @@ fun Float.toDiscountPriceFormat(discountPrice: Float): SpannableString {
 }
 
 fun Float.getTotalPrice(count: Int): Float = (this * count)
+
+fun Float.getTotalPrice(discountTotal: Float?, appliedPromotion: Boolean): SpannableString =
+    if (appliedPromotion && discountTotal != null) {
+        discountTotal.let {
+            this.toDiscountPriceFormat(it)
+        }
+    } else {
+        SpannableString(this.toPriceFormat())
+    }

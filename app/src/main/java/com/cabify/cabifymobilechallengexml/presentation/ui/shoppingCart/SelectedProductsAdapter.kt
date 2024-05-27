@@ -1,4 +1,4 @@
-package com.cabify.cabifymobilechallengexml.presentation.shoppingCart
+package com.cabify.cabifymobilechallengexml.presentation.ui.shoppingCart
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +13,7 @@ import com.cabify.cabifymobilechallengexml.domain.models.ProductCode
 import com.cabify.cabifymobilechallengexml.presentation.models.CabifyProductVo
 import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getCountWithShoppingCartFormat
 import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getPrice
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getProductDrawable
 import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getTotalPrice
 
 class SelectedProductsAdapter(
@@ -31,20 +32,18 @@ class SelectedProductsAdapter(
     inner class ProductsViewHolder(private val binding: ItemProductSelectedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CabifyProductVo) = with(binding) {
-            when (item.code) {
-                ProductCode.VOUCHER -> itemProductIvProductImage.setImageResource(R.drawable.ic_cabify_voucher)
-                ProductCode.TSHIRT -> itemProductIvProductImage.setImageResource(R.drawable.ic_cabify_tshirt)
-                ProductCode.MUG -> itemProductIvProductImage.setImageResource(R.drawable.ic_cabify_coffee_mug)
-                else -> itemProductIvProductImage.setImageResource(R.drawable.ic_default_image)
-            }
+            itemProductIvProductImage.setImageResource(item.getProductDrawable())
             itemSelectedProductTvProductName.text = item.name
             itemSelectedProductTvPrice.text = item.getPrice()
+            setTotalAmount(item, binding)
+            setDiscountInfoViews(binding, item)
+        }
+
+        private fun setTotalAmount(item: CabifyProductVo, binding: ItemProductSelectedBinding) {
             val totalPrice = item.price.getTotalPrice(item.count)
             val totalDiscountPrice = item.promotion?.discountAmount?.getTotalPrice(item.count)
-            itemSelectedProductTvProductCount.text = item.count.getCountWithShoppingCartFormat()
-            itemSelectedProductTvTotalPrice.text =
+            binding.itemSelectedProductTvTotalPrice.text =
                 totalPrice.getTotalPrice(totalDiscountPrice, item.appliedPromotion)
-            setDiscountInfoViews(binding, item)
         }
 
         private fun setDiscountInfoViews(binding: ItemProductSelectedBinding, item: CabifyProductVo) = with(binding) {

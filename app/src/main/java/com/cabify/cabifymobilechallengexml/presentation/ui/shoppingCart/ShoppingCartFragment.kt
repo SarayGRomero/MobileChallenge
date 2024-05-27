@@ -1,4 +1,4 @@
-package com.cabify.cabifymobilechallengexml.presentation.shoppingCart
+package com.cabify.cabifymobilechallengexml.presentation.ui.shoppingCart
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,6 @@ import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.toDisco
 
 class ShoppingCartFragment : Fragment() {
 
-    private val viewModel: ShoppingCartViewModel by viewModels()
     private var viewBinding: FragmentShoppingCartBinding? = null
     private lateinit var selectedProducts: ProductsVo
     private val args: ShoppingCartFragmentArgs by navArgs()

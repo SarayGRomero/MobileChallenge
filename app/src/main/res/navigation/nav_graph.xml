@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.cabify.cabifymobilechallengexml.presentation.products.ProductsFragment"
+        android:name="com.cabify.cabifymobilechallengexml.presentation.ui.products.ProductsFragment"
         android:label="ProductsFragment"
         tools:layout="@layout/fragment_products">
         <action
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/shoppingCartFragment"
-        android:name="com.cabify.cabifymobilechallengexml.presentation.shoppingCart.ShoppingCartFragment"
+        android:name="com.cabify.cabifymobilechallengexml.presentation.ui.shoppingCart.ShoppingCartFragment"
         android:label="ShoppingCartFragment"
         tools:layout="@layout/fragment_shopping_cart">
         <argument

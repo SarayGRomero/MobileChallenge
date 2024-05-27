@@ -1,4 +1,4 @@
-package com.cabify.cabifymobilechallengexml.data
+package com.cabify.cabifymobilechallengexml.data.net
 
 import com.cabify.cabifymobilechallengexml.data.models.CabifyProductResponse
 import retrofit2.Response

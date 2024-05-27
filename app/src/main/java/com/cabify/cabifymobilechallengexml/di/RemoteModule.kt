@@ -1,7 +1,10 @@
 package com.cabify.cabifymobilechallengexml.di
 
 import com.cabify.cabifymobilechallenge.Environment
-import com.cabify.cabifymobilechallengexml.data.CabifyProductWs
+import com.cabify.cabifymobilechallengexml.data.net.CabifyMobileChallengeErrorHandler
+import com.cabify.cabifymobilechallengexml.data.net.CabifyProductWs
+import com.cabify.cabifymobilechallengexml.data.net.ErrorHandler
+import com.cabify.cabifymobilechallengexml.data.net.RemoteExceptionInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -41,12 +44,25 @@ object RemoteModule {
     }
 
     @Provides
-    fun okHttpClientProvider() =
+    fun okHttpClientProvider(errorHandler: ErrorHandler) =
         OkHttpClient.Builder().apply {
             val httpLoggingInterceptor =
                 HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             addInterceptor(httpLoggingInterceptor)
+            addInterceptor(RemoteExceptionInterceptor(errorHandler))
         }.build()
+
+    @Provides
+    @Singleton
+    fun provideErrorHandler(): ErrorHandler {
+        return CabifyMobileChallengeErrorHandler()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteExceptionInterceptor(errorHandler: ErrorHandler): RemoteExceptionInterceptor {
+        return RemoteExceptionInterceptor(errorHandler)
+    }
 }

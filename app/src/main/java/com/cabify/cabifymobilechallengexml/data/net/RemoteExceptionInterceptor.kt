@@ -1,6 +1,5 @@
-package com.auraseguros.auraclientes.data.net.interceptors
+package com.cabify.cabifymobilechallengexml.data.net
 
-import com.auraseguros.auraclientes.data.net.ErrorHandler
 import okhttp3.Interceptor
 
 class RemoteExceptionInterceptor(private val errorHandler: ErrorHandler) : Interceptor {

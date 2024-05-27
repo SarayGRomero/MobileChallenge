@@ -1,7 +1,7 @@
-package com.auraseguros.auraclientes.data.net
+package com.cabify.cabifymobilechallengexml.data.net
 
 import okhttp3.Response
 
-interface ErrorHandler {
+fun interface ErrorHandler {
     fun handleError(response: Response): Throwable
 }

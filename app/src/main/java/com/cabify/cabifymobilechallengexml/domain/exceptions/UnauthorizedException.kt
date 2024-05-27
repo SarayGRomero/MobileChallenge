@@ -1,5 +1,5 @@
-package com.auraseguros.auraclientes.domain.exceptions.validation
+package com.cabify.cabifymobilechallengexml.domain.exceptions
 
 import java.io.IOException
 
-class BadRequestException(message: String?) : IOException(message)
+class UnauthorizedException(message: String?) : IOException(message)

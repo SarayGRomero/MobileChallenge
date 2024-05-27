@@ -4,6 +4,7 @@ import android.content.Context
 import com.cabify.cabifymobilechallengexml.R
 import com.cabify.cabifymobilechallengexml.data.models.CabifyProductDto
 import com.cabify.cabifymobilechallengexml.data.models.CabifyPromotionsDto
+import com.cabify.cabifymobilechallengexml.data.net.CabifyProductWs
 import com.cabify.cabifymobilechallengexml.data.utils.JsonHelper
 import javax.inject.Inject
 

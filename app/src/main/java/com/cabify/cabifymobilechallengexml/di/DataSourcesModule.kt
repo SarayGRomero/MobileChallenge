@@ -1,6 +1,6 @@
 package com.cabify.cabifymobilechallengexml.di
 
-import com.cabify.cabifymobilechallengexml.data.CabifyProductWs
+import com.cabify.cabifymobilechallengexml.data.net.CabifyProductWs
 import com.cabify.cabifymobilechallengexml.data.ProductsDataSource
 import com.cabify.cabifymobilechallengexml.data.ProductsDataSourceImpl
 import dagger.Module

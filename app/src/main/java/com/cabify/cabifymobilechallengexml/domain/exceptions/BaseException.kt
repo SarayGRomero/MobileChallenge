@@ -1,4 +1,4 @@
-package com.auraseguros.auraclientes.domain.exceptions
+package com.cabify.cabifymobilechallengexml.domain.exceptions
 
 import java.io.IOException
 

@@ -1,6 +1,7 @@
 package com.cabify.cabifymobilechallengexml.domain.usecases
 
 import com.cabify.cabifymobilechallengexml.domain.ProductsRepository
+import com.cabify.cabifymobilechallengexml.domain.exceptions.UnknownException
 import com.cabify.cabifymobilechallengexml.domain.models.CabifyProductBo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,7 +18,7 @@ class GetProductsUseCaseImpl(
         if (!products.isNullOrEmpty()) {
             emit(products)
         } else {
-            throw Exception("No products found")
+            throw UnknownException
         }
     }
 }

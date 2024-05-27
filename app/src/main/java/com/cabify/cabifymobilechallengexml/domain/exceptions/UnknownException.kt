@@ -1,5 +1,3 @@
-package com.auraseguros.auraclientes.domain.exceptions.validation
-
-import com.auraseguros.auraclientes.domain.exceptions.BaseException
+package com.cabify.cabifymobilechallengexml.domain.exceptions
 
 object UnknownException : BaseException()

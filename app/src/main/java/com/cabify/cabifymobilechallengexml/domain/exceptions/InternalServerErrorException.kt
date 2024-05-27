@@ -2,4 +2,4 @@ package com.cabify.cabifymobilechallengexml.domain.exceptions
 
 import java.io.IOException
 
-class UnauthorizedException(message: String?) : IOException(message)
+class InternalServerErrorException(message: String?) : IOException(message)

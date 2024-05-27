@@ -17,15 +17,53 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
         release {
             isMinifyEnabled = false
+            isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
+
+    flavorDimensions.add("environment")
+    productFlavors {
+        create("pre") {
+            dimension = "environment"
+            applicationIdSuffix = ".pre"
+            applicationId = "com.cabify.cabifymobilechallengexml.pre"
+            versionNameSuffix = "-pre"
+            resValue(
+                "string",
+                "app_name",
+                "Cabify Mobile Challenge - Pre"
+            )
+            setProperty(
+                "archivesBaseName",
+                "CabifyMobileChanllenge-v${defaultConfig.versionName}(${defaultConfig.versionCode})"
+            )
+        }
+        create("pro") {
+            dimension = "environment"
+            applicationId = "com.cabify.cabifymobilechallengexml"
+            resValue(
+                "string",
+                "app_name",
+                "Cabify Mobile Challenge"
+            )
+            setProperty(
+                "archivesBaseName",
+                "CabifyMobileChanllenge-v${defaultConfig.versionName}(${defaultConfig.versionCode})"
+            )
         }
     }
     compileOptions {
@@ -38,6 +76,14 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.outputs.forEach { output ->
+            val apkName = "CabifyMobileChanllenge-v${variant.productFlavors}"
+        }
     }
 }
 

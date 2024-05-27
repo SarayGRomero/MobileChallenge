@@ -1,5 +1,6 @@
 package com.cabify.cabifymobilechallengexml.di
 
+import com.cabify.cabifymobilechallenge.Environment
 import com.cabify.cabifymobilechallengexml.data.CabifyProductWs
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -23,7 +24,7 @@ object RemoteModule {
         moshi: Moshi
     ): Retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl("https://gist.githubusercontent.com/")
+        .baseUrl(Environment.CabifyApi.BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
 

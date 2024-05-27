@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="promotions">#007405</color>
+    <color name="color_primary">#FF633FB9</color>
+    <color name="color_secondary">#FF9883CA</color>
 </resources>

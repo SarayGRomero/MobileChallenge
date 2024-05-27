@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginTop="@dimen/product_show_cart_margin_top"
-            android:padding="@dimen/product_show_cart_padding"
             android:text="@string/products_show_cart"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"

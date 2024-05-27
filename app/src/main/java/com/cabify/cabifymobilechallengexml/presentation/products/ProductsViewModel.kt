@@ -1,13 +1,14 @@
 package com.cabify.cabifymobilechallengexml.presentation.products
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cabify.cabifymobilechallengexml.domain.usecases.GetProductsUseCase
+import com.cabify.cabifymobilechallengexml.CabifyApplication
+import com.cabify.cabifymobilechallengexml.domain.usecases.GetProductsWithPromotionsAppliedUseCase
 import com.cabify.cabifymobilechallengexml.presentation.mappers.toVo
 import com.cabify.cabifymobilechallengexml.presentation.models.CabifyProductVo
 import com.cabify.cabifymobilechallengexml.presentation.models.ProductsVo
-import com.cabify.cabifymobilechallengexml.presentation.utils.getPrice
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getDiscountPrice
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getPrice
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,8 @@ import javax.inject.Named
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
-    private val getProductsUseCase: GetProductsUseCase,
+    private val getProductsWithPromotionsAppliedUseCase: GetProductsWithPromotionsAppliedUseCase,
+    private val application: CabifyApplication,
     @Named("DISPATCHER_IO") private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
@@ -36,9 +38,10 @@ class ProductsViewModel @Inject constructor(
 
     fun getProducts() = viewModelScope.launch(ioDispatcher) {
         if (selectedProducts.value == null) {
-            getProductsUseCase.invoke().collect { products ->
-                _products.value = products.map { it.toVo() }
-            }
+            getProductsWithPromotionsAppliedUseCase.invoke(context = application.applicationContext)
+                .collect { products ->
+                    _products.value = products.map { it.toVo() }
+                }
         }
     }
 
@@ -51,7 +54,8 @@ class ProductsViewModel @Inject constructor(
         val selectedProductsList = products.filter { it.count > 0 }
         val selectedProducts = ProductsVo(
             products = selectedProductsList,
-            totalPrice = selectedProductsList.getPrice()
+            totalPrice = selectedProductsList.getPrice(),
+            discountPrice = selectedProductsList.getDiscountPrice()
         )
         _selectedProducts.value = selectedProducts
         _navigate.value = !_navigate.value

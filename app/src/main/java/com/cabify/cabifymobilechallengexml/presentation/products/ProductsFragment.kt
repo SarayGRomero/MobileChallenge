@@ -13,6 +13,7 @@ import com.cabify.cabifymobilechallengexml.R
 import com.cabify.cabifymobilechallengexml.databinding.FragmentProductsBinding
 import com.cabify.cabifymobilechallengexml.presentation.models.CabifyProductVo
 import com.cabify.cabifymobilechallengexml.presentation.models.ProductsVo
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.showPromotionInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,9 +25,11 @@ class ProductsFragment : Fragment() {
     private lateinit var productList: List<CabifyProductVo>
     private lateinit var selectedProducts: ProductsVo
 
-    private var productsAdapter = ProductsAdapter {
-        updateTotalCount(it)
-    }
+    private var productsAdapter = ProductsAdapter({ products ->
+        updateTotalCount(products)
+    }, { promotion ->
+        this.context?.showPromotionInfo(promotion)
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

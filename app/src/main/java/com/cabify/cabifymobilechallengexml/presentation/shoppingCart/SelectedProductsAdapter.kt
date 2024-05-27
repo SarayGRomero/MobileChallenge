@@ -1,20 +1,24 @@
 package com.cabify.cabifymobilechallengexml.presentation.shoppingCart
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cabify.cabifymobilechallengexml.R
-import com.cabify.cabifymobilechallengexml.databinding.ItemProductBinding
 import com.cabify.cabifymobilechallengexml.databinding.ItemProductSelectedBinding
-import com.cabify.cabifymobilechallengexml.domain.ProductCode
+import com.cabify.cabifymobilechallengexml.domain.models.CabifyPromotionBo
+import com.cabify.cabifymobilechallengexml.domain.models.ProductCode
 import com.cabify.cabifymobilechallengexml.presentation.models.CabifyProductVo
-import com.cabify.cabifymobilechallengexml.presentation.utils.getCountWithShoppingCartFormat
-import com.cabify.cabifymobilechallengexml.presentation.utils.getTotalPrice
-import com.cabify.cabifymobilechallengexml.presentation.utils.toPriceFormat
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getCountWithShoppingCartFormat
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getPrice
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getTotalPrice
 
-class SelectedProductsAdapter : ListAdapter<CabifyProductVo, SelectedProductsAdapter.ProductsViewHolder>(DiffCallback()) {
+class SelectedProductsAdapter(
+    private val showPromotionInfo: (CabifyPromotionBo) -> Unit
+) :
+    ListAdapter<CabifyProductVo, SelectedProductsAdapter.ProductsViewHolder>(DiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
         val binding = ItemProductSelectedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductsViewHolder(binding)
@@ -24,7 +28,8 @@ class SelectedProductsAdapter : ListAdapter<CabifyProductVo, SelectedProductsAda
         holder.bind(getItem(position))
     }
 
-    inner class ProductsViewHolder(private val binding: ItemProductSelectedBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ProductsViewHolder(private val binding: ItemProductSelectedBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CabifyProductVo) = with(binding) {
             when (item.code) {
                 ProductCode.VOUCHER -> itemProductIvProductImage.setImageResource(R.drawable.ic_cabify_voucher)
@@ -33,10 +38,20 @@ class SelectedProductsAdapter : ListAdapter<CabifyProductVo, SelectedProductsAda
                 else -> itemProductIvProductImage.setImageResource(R.drawable.ic_default_image)
             }
             itemSelectedProductTvProductName.text = item.name
-            itemSelectedProductTvPrice.text = item.price.toPriceFormat()
+            itemSelectedProductTvPrice.text = item.getPrice()
+            val totalPrice = item.price.getTotalPrice(item.count)
+            val totalDiscountPrice = item.promotion?.discountAmount?.getTotalPrice(item.count)
             itemSelectedProductTvProductCount.text = item.count.getCountWithShoppingCartFormat()
-            itemSelectedProductTvTotalPrice.text = item.price.getTotalPrice(item.count)
-            itemSelectedProductTvPriceWithDiscount.text = item.price.getTotalPrice(item.count)
+            itemSelectedProductTvTotalPrice.text =
+                totalPrice.getTotalPrice(totalDiscountPrice, item.appliedPromotion)
+            setDiscountInfoViews(binding, item)
+        }
+
+        private fun setDiscountInfoViews(binding: ItemProductSelectedBinding, item: CabifyProductVo) = with(binding) {
+            itemSelectedProductIvInfo.visibility = if (item.appliedPromotion) View.VISIBLE else View.GONE
+            itemSelectedProductIvInfo.setOnClickListener {
+                item.promotion?.let { promotion -> showPromotionInfo.invoke(promotion) }
+            }
         }
     }
 

@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cabify.cabifymobilechallengexml.databinding.ViewProductCounterBinding
-import com.cabify.cabifymobilechallengexml.presentation.utils.MINIMUM_PRODUCT_COUNT
+import com.cabify.cabifymobilechallengexml.presentation.utils.constants.MINIMUM_PRODUCT_COUNT
 
 class ProductCounterView(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
     private var binding: ViewProductCounterBinding = ViewProductCounterBinding.inflate(

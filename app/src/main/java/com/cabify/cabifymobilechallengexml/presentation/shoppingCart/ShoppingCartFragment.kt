@@ -10,7 +10,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cabify.cabifymobilechallengexml.databinding.FragmentShoppingCartBinding
 import com.cabify.cabifymobilechallengexml.presentation.models.ProductsVo
-import com.cabify.cabifymobilechallengexml.presentation.utils.toPriceFormat
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.showPromotionInfo
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.toDiscountPriceFormat
 
 
 class ShoppingCartFragment : Fragment() {
@@ -19,7 +20,9 @@ class ShoppingCartFragment : Fragment() {
     private var viewBinding: FragmentShoppingCartBinding? = null
     private lateinit var selectedProducts: ProductsVo
     private val args: ShoppingCartFragmentArgs by navArgs()
-    private var selectedProductsAdapter = SelectedProductsAdapter()
+    private var selectedProductsAdapter = SelectedProductsAdapter { promotion ->
+        this.context?.showPromotionInfo(promotion)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +48,7 @@ class ShoppingCartFragment : Fragment() {
     }
 
     private fun setPrices() = with(viewBinding) {
-        this?.shoppingCartTvSubtotalPriceValue?.text = selectedProducts.totalPrice.toPriceFormat()
-        this?.shoppingCartTvDiscountValue?.text = selectedProducts.totalPrice.toPriceFormat()
-        this?.shoppingCartTvTotalValue?.text = selectedProducts.totalPrice.toPriceFormat()
+        this?.shoppingCartTvTotalValue?.text =
+            selectedProducts.totalPrice.toDiscountPriceFormat(selectedProducts.discountPrice)
     }
 }

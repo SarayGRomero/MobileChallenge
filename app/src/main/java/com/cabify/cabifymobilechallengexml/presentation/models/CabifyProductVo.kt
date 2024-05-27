@@ -1,16 +1,18 @@
 package com.cabify.cabifymobilechallengexml.presentation.models
 
-import com.cabify.cabifymobilechallengexml.domain.ProductCode
+import android.os.Parcelable
+import com.cabify.cabifymobilechallengexml.domain.models.CabifyPromotionBo
+import com.cabify.cabifymobilechallengexml.domain.models.ProductCode
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class CabifyProductVo(
     val id: String,
     val code: ProductCode,
     val name: String,
     val price: Float,
-    var count: Int
-)
-
-data class ProductsVo(
-    val products: List<CabifyProductVo>,
-    val totalPrice: Float
-)
+    var count: Int,
+    val hasPromotion: Boolean,
+    val promotion: CabifyPromotionBo?,
+    var appliedPromotion: Boolean = false
+) : Parcelable

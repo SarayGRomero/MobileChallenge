@@ -9,7 +9,16 @@
 
     <!-- Product item -->
     <string name="item_product_image_description">product image</string>
-    <string name="products_show_cart">Ver carrito (%1$d)</string>
+    <string name="products_show_cart">Shopping cart (%1$d)</string>
 
     <!-- END PRODUCT LIST SECTION -->
+
+    <!-- START SHOPPING CART SECTION -->
+
+    <string name="shopping_cart_count">x %1$d</string>
+    <string name="shopping_cart_selected_product_info_description">promotions info</string>
+    <string name="shopping_cart_total_price_title">Total</string>
+    <string name="shopping_cart_total_go_to_checkout">Go to checkout</string>
+
+    <!-- END SHOPPING CART SECTION -->
 </resources>

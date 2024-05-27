@@ -20,4 +20,16 @@
     <dimen name="product_show_cart_padding">5dp</dimen>
 
     <!-- END PRODUCT LIST SECTION -->
+
+    <!-- START SHOPPING CART SECTION -->
+
+    <dimen name="shopping_cart_product_selected_horizontal_margin">12dp</dimen>
+    <dimen name="shopping_cart_product_selected_vertical_margin">6dp</dimen>
+    <dimen name="shopping_cart_divider_height">2dp</dimen>
+    <dimen name="shopping_cart_divider_margin_horizontal">5dp</dimen>
+    <dimen name="shopping_cart_total_margin_top">10dp</dimen>
+    <dimen name="shopping_cart_go_to_checkout_button_margin_top">30dp</dimen>
+    <dimen name="shopping_cart_go_to_checkout_button_padding">5dp</dimen>
+
+    <!-- END SHOPPING CART SECTION -->
 </resources>

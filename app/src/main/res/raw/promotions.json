@@ -1,0 +1,11 @@
+{
+  "promotions": [
+    {
+      "name": "3 for 19.00€ each",
+      "description": "Special Offer: Get 3 units of this product for only 19.00€ each instead of the regular price.",
+      "applicableProduct": "TSHIRT",
+      "minimumProductCount": 3,
+      "discountAmount": 19.00
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 package com.cabify.cabifymobilechallengexml.domain.mappers
 
-import com.cabify.cabifymobilechallengexml.data.CabifyProductDto
-import com.cabify.cabifymobilechallengexml.domain.CabifyProductBo
-import com.cabify.cabifymobilechallengexml.domain.ProductCode
+import com.cabify.cabifymobilechallengexml.data.models.CabifyProductDto
+import com.cabify.cabifymobilechallengexml.domain.models.CabifyProductBo
+import com.cabify.cabifymobilechallengexml.domain.models.ProductCode
 import java.util.UUID
 
 fun CabifyProductDto.toBo() = CabifyProductBo(

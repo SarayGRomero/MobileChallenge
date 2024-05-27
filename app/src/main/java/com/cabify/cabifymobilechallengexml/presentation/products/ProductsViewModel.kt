@@ -1,13 +1,14 @@
 package com.cabify.cabifymobilechallengexml.presentation.products
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cabify.cabifymobilechallengexml.domain.usecases.GetProductsUseCase
+import com.cabify.cabifymobilechallengexml.CabifyApplication
+import com.cabify.cabifymobilechallengexml.domain.usecases.GetProductsWithPromotionsAppliedUseCase
 import com.cabify.cabifymobilechallengexml.presentation.mappers.toVo
 import com.cabify.cabifymobilechallengexml.presentation.models.CabifyProductVo
 import com.cabify.cabifymobilechallengexml.presentation.models.ProductsVo
-import com.cabify.cabifymobilechallengexml.presentation.utils.getPrice
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getDiscountPrice
+import com.cabify.cabifymobilechallengexml.presentation.utils.extensions.getPrice
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,19 +19,29 @@ import javax.inject.Named
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
-    private val getProductsUseCase: GetProductsUseCase,
+    private val getProductsWithPromotionsAppliedUseCase: GetProductsWithPromotionsAppliedUseCase,
+    private val application: CabifyApplication,
     @Named("DISPATCHER_IO") private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _products = MutableStateFlow<List<CabifyProductVo>>(emptyList())
     val products: StateFlow<List<CabifyProductVo>> = _products
 
-    private val _totalCount = MutableStateFlow<Int>(0)
+    private val _totalCount = MutableStateFlow(0)
     val totalCount: StateFlow<Int> = _totalCount
 
+    private val _selectedProducts: MutableStateFlow<ProductsVo?> = MutableStateFlow(null)
+    val selectedProducts: StateFlow<ProductsVo?> = _selectedProducts
+
+    private val _navigate = MutableStateFlow(false)
+    val navigate: StateFlow<Boolean> = _navigate
+
     fun getProducts() = viewModelScope.launch(ioDispatcher) {
-        getProductsUseCase.invoke().collect { products ->
-            _products.value = products.map { it.toVo() }
+        if (selectedProducts.value == null) {
+            getProductsWithPromotionsAppliedUseCase.invoke(context = application.applicationContext)
+                .collect { products ->
+                    _products.value = products.map { it.toVo() }
+                }
         }
     }
 
@@ -39,13 +50,18 @@ class ProductsViewModel @Inject constructor(
         _totalCount.value = products.sumOf { it.count }
     }
 
-    fun goToShoppingCart(products: List<CabifyProductVo>) {
-        val selectedProducts = products.filter { it.count > 0 }
-        val totalProducts = ProductsVo(
-            products = selectedProducts,
-            totalPrice = selectedProducts.getPrice()
+    fun updateSelectedProductsList(products: List<CabifyProductVo>) {
+        val selectedProductsList = products.filter { it.count > 0 }
+        val selectedProducts = ProductsVo(
+            products = selectedProductsList,
+            totalPrice = selectedProductsList.getPrice(),
+            discountPrice = selectedProductsList.getDiscountPrice()
         )
-        Log.d("ProductsViewModel", totalProducts.products.toString() + " - " + totalProducts.totalPrice.toString())
-        //TODO Navigate to shopping cart
+        _selectedProducts.value = selectedProducts
+        _navigate.value = !_navigate.value
+    }
+
+    fun updateNavigate(navigate: Boolean) {
+        _navigate.value = navigate
     }
 }

@@ -1,7 +1,7 @@
 package com.cabify.cabifymobilechallengexml.domain.usecases
 
-import com.cabify.cabifymobilechallengexml.domain.CabifyProductBo
 import com.cabify.cabifymobilechallengexml.domain.ProductsRepository
+import com.cabify.cabifymobilechallengexml.domain.models.CabifyProductBo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
